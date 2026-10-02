@@ -4,7 +4,10 @@
  * Browsers block audio until the user interacts with the page, so music
  * starts from `startMusic()`, which the app calls on the first click/key.
  */
+/** A skill's level goes up (skill slider). */
 export const SKILL_LEVEL_UP_SOUND = "/sounds/skill-level-up.mp3";
+/** The character's level goes up (level slider). */
+export const CHARACTER_LEVEL_UP_SOUND = "/sounds/character-level-up.mp3";
 /** "Harvest Dawn", The Elder Scrolls IV: Oblivion soundtrack, track 04. */
 export const AMBIENT_MUSIC = "/sounds/ambient-music.mp3";
 
@@ -12,7 +15,7 @@ const MUTE_KEY = "skilltree:muted";
 const MUSIC_VOLUME = 0.25;
 const EFFECT_VOLUME = 0.6;
 
-let effect: HTMLAudioElement | null = null;
+const effects = new Map<string, HTMLAudioElement>();
 let music: HTMLAudioElement | null = null;
 let musicStarted = false;
 let fadeTimer: ReturnType<typeof setInterval> | undefined;
@@ -87,14 +90,26 @@ export function startMusic(): void {
   }
 }
 
-export function playSkillLevelUp(): void {
+function playEffect(src: string): void {
   if (muted || typeof window === "undefined") return;
   try {
-    effect ??= new Audio(SKILL_LEVEL_UP_SOUND);
+    let effect = effects.get(src);
+    if (!effect) {
+      effect = new Audio(src);
+      effects.set(src, effect);
+    }
     effect.volume = EFFECT_VOLUME;
     effect.currentTime = 0;
     void effect.play().catch(() => {});
   } catch {
     // No audio support.
   }
+}
+
+export function playSkillLevelUp(): void {
+  playEffect(SKILL_LEVEL_UP_SOUND);
+}
+
+export function playCharacterLevelUp(): void {
+  playEffect(CHARACTER_LEVEL_UP_SOUND);
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MAX_CHARACTER_LEVEL, MIN_CHARACTER_LEVEL } from "@/lib/constants";
 import { availablePoints, minCharacterLevel } from "@/lib/rules";
+import { playCharacterLevelUp } from "@/lib/sound";
 import { useMuted } from "@/hooks/useMuted";
 import { useBuild } from "@/state/BuildProvider";
 import { ConfirmButton } from "./ConfirmButton";
@@ -31,6 +32,15 @@ export function TopBar() {
   const [copied, setCopied] = useState(false);
   const points = availablePoints(build);
   const minLevel = minCharacterLevel(build);
+  // Level when the current drag/keypress started, to play the sound once per change.
+  const startLevel = useRef<number | null>(null);
+  const begin = () => {
+    startLevel.current ??= build.characterLevel;
+  };
+  const commit = () => {
+    if (startLevel.current !== null && build.characterLevel > startLevel.current) playCharacterLevelUp();
+    startLevel.current = null;
+  };
 
   const copy = async () => {
     const ok = await copyText(shareUrl());
@@ -73,7 +83,15 @@ export function TopBar() {
             max={MAX_CHARACTER_LEVEL}
             value={build.characterLevel}
             disabled={readOnly}
-            onChange={(e) => dispatch({ type: "set-character-level", level: Number(e.target.value) })}
+            onPointerDown={begin}
+            onKeyDown={begin}
+            onPointerUp={commit}
+            onKeyUp={commit}
+            onBlur={commit}
+            onChange={(e) => {
+              begin();
+              dispatch({ type: "set-character-level", level: Number(e.target.value) });
+            }}
             aria-valuetext={`Level ${build.characterLevel}${minLevel > MIN_CHARACTER_LEVEL ? `, minimum ${minLevel} for spent perks` : ""}`}
           />
         </div>

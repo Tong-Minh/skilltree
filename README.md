@@ -54,10 +54,11 @@ The content is validated on startup and in tests (`src/lib/validate.ts`): missin
 
 ## Sounds
 
-The app plays a level-up sound when a skill level increases and ambient music after the first click (browsers block autoplay). The ♪ button mutes both.
+The app plays one sound when a skill level increases, another when the character level increases, and ambient music after the first click (browsers block autoplay). The ♪ button mutes all of them.
 
 ```
 public/sounds/skill-level-up.mp3
+public/sounds/character-level-up.mp3
 public/sounds/ambient-music.mp3
 ```
 
@@ -65,6 +66,7 @@ These are third-party game audio, © Bethesda Softworks, included for personal u
 
 - `ambient-music.mp3`: "Harvest Dawn", track 04 from *The Elder Scrolls IV: Oblivion* soundtrack
 - `skill-level-up.mp3`: the skill level-up sound from *The Elder Scrolls V: Skyrim*
+- `character-level-up.mp3`: the character level-up sound from *The Elder Scrolls V: Skyrim*
 
 Replace them with your own files to swap the sounds; paths are set in [`src/lib/sound.ts`](src/lib/sound.ts). Without the files the app runs silently.
 
