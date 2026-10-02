@@ -33,4 +33,4 @@ Run `npm test` and `npm run typecheck` after changing anything in `src/lib`, `sr
 
 ## Assets
 
-`public/sounds/*.mp3` is gitignored. The local files are third-party (Bethesda) audio and must not be committed to this public repo. Use original or licensed audio if sounds should ship.
+`public/sounds/*.mp3` are third-party (Bethesda) audio, committed at the owner's choice for personal use. Don't add more third-party assets without asking; prefer original or licensed audio/art.

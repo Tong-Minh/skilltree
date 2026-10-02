@@ -52,16 +52,16 @@ All skills and perks live in [`src/data/skills.ts`](src/data/skills.ts). Each pe
 
 The content is validated on startup and in tests (`src/lib/validate.ts`): missing parents, cycles, bad rank requirements and out-of-range positions fail loudly.
 
-## Sounds (optional)
+## Sounds
 
-The app plays a level-up sound when a skill level increases and ambient music after the first click. The audio files aren't included in the repository. To enable them, add your own files:
+The app plays a level-up sound when a skill level increases and ambient music after the first click (browsers block autoplay). The ♪ button mutes both.
 
 ```
 public/sounds/skill-level-up.mp3
 public/sounds/ambient-music.mp3
 ```
 
-Paths are set in [`src/lib/sound.ts`](src/lib/sound.ts). Without the files the app runs silently.
+These are third-party game audio (The Elder Scrolls, © Bethesda), included for personal use only and not covered by this project's code. Replace them with your own files to swap the sounds; paths are set in [`src/lib/sound.ts`](src/lib/sound.ts). Without the files the app runs silently.
 
 ## Project layout
 
