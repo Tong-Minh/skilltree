@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-barlow), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+  --accent: #9fc6ff;
+  --hud-bg: rgba(6, 8, 16, 0.72);
+  --hud-line: rgba(220, 230, 255, 0.55);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #03040a;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- HUD -------------------------------------------------------------- */
+
+/* Dark bar with thin bright edges and angled ends. */
+.hud-bar {
+  position: relative;
+  background: linear-gradient(180deg, rgba(10, 12, 22, 0.82), var(--hud-bg));
+  border-top: 1px solid var(--hud-line);
+  border-bottom: 1px solid var(--hud-line);
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%);
+  backdrop-filter: blur(6px);
+}
+.hud-bar-small {
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+}
+
+.hud-panel {
+  background: rgba(6, 8, 16, 0.9);
+  border: 1px solid rgba(220, 230, 255, 0.25);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 0 40px -10px var(--accent), 0 10px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hud-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(148 163 184);
+}
+
+.hud-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: white;
+  padding: 0 2px;
+}
+.hud-input:hover:not([readonly]),
+.hud-input:focus {
+  border-bottom-color: var(--hud-line);
+  outline: none;
+}
+
+.hud-button {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(226 232 240);
+  padding: 0.3rem 0.8rem;
+  min-height: 2.25rem;
+  border: 1px solid rgba(220, 230, 255, 0.28);
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 150ms, border-color 150ms, color 150ms;
+  white-space: nowrap;
+}
+.hud-button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+.hud-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.hud-button-primary {
+  border-color: var(--accent);
+  color: white;
+  box-shadow: inset 0 0 12px -4px var(--accent);
+}
+.hud-button-danger {
+  border-color: rgb(251 113 133);
+  color: rgb(254 205 211);
+}
+
+.skill-chip {
+  font-size: 1.05rem;
+  padding: 0.35rem 0.75rem;
+  color: rgb(203 213 225);
+  border-bottom: 2px solid transparent;
+  transition: color 150ms, border-color 150ms;
+}
+.skill-chip:hover {
+  color: white;
+  border-bottom-color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Range slider: thin line with a diamond thumb. */
+.hud-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1.75rem;
+  background: transparent;
+  cursor: pointer;
+}
+.hud-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.hud-range::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.15));
+  border: 1px solid rgba(220, 230, 255, 0.3);
+}
+.hud-range::-moz-range-track {
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.15));
+  border: 1px solid rgba(220, 230, 255, 0.3);
+}
+.hud-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px var(--accent);
+}
+.hud-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 0;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ---- Sky & perks -------------------------------------------------------- */
+
+.sky-constellation {
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 0%, transparent), transparent);
+  transition: background 300ms;
+}
+.sky-constellation:hover,
+.sky-constellation:focus-visible {
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 16%, transparent), transparent 75%);
+}
+.sky-constellation:focus-visible {
+  outline-offset: -6px;
+}
+
+/* Invisible 44px hit area over each SVG star. */
+.perk-hit {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+.perk-hit:focus-visible {
+  outline-offset: -8px;
+}
+
+.perk-label {
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 1);
+}
+
+.constellation {
+  transition: opacity 700ms ease;
+}
+
+.perk-pulse,
+.perk-glow,
+.perk-burst,
+.perk-focus-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.perk-pulse {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.perk-glow {
+  animation: shimmer 5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.perk-burst {
+  animation: burst 900ms ease-out forwards;
+}
+@keyframes burst {
+  from {
+    opacity: 1;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: scale(4.5);
+  }
+}
+
+.perk-focus-ring {
+  animation: spin-in 300ms ease-out;
+}
+@keyframes spin-in {
+  from {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+.link-ready {
+  animation: dash 1.6s linear infinite;
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
+/* Newly lit links draw from parent to child with a bright leading edge. */
+.link-draw .link-core,
+.link-draw .link-glow {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 700ms ease-out forwards;
+}
+.link-draw .link-glow {
+  animation: draw 700ms ease-out forwards, flare 1400ms ease-out;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes flare {
+  0%,
+  40% {
+    stroke-opacity: 0.9;
+  }
+  100% {
+    stroke-opacity: 0.35;
+  }
+}
+
+.tooltip-in {
+  animation: tooltip-in 160ms ease-out;
+}
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.toast-in {
+  animation: tooltip-in 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+  .perk-pulse {
+    animation: none;
+    opacity: 0.45;
+  }
+}
