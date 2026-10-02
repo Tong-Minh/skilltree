@@ -5,6 +5,7 @@
  * starts from `startMusic()`, which the app calls on the first click/key.
  */
 export const SKILL_LEVEL_UP_SOUND = "/sounds/skill-level-up.mp3";
+/** "Harvest Dawn", The Elder Scrolls IV: Oblivion soundtrack, track 04. */
 export const AMBIENT_MUSIC = "/sounds/ambient-music.mp3";
 
 const MUTE_KEY = "skilltree:muted";

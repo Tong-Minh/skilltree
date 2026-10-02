@@ -61,7 +61,12 @@ public/sounds/skill-level-up.mp3
 public/sounds/ambient-music.mp3
 ```
 
-These are third-party game audio (The Elder Scrolls, © Bethesda), included for personal use only and not covered by this project's code. Replace them with your own files to swap the sounds; paths are set in [`src/lib/sound.ts`](src/lib/sound.ts). Without the files the app runs silently.
+These are third-party game audio, © Bethesda Softworks, included for personal use only and not covered by this project's code:
+
+- `ambient-music.mp3`: "Harvest Dawn", track 04 from *The Elder Scrolls IV: Oblivion* soundtrack
+- `skill-level-up.mp3`: the skill level-up sound from *The Elder Scrolls V: Skyrim*
+
+Replace them with your own files to swap the sounds; paths are set in [`src/lib/sound.ts`](src/lib/sound.ts). Without the files the app runs silently.
 
 ## Project layout
 
